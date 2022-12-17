@@ -1,12 +1,13 @@
 from flask import Flask
 import requests
+from decouple import config
 
 
 
 app = Flask(__name__)
 
-http_proxy = "http://elpibe12221:zcW77HwYxEJr5Zzh@proxy.packetstream.io:31112"
-https_proxy = "http://elpibe12221:zcW77HwYxEJr5Zzh@proxy.packetstream.io:31112"
+http_proxy = config('PROXY')
+https_proxy = config('PROXY')
 url = "https://www.guadeloupe.gouv.fr/booking/create/12828/0"
 proxyDict = {
     "http": http_proxy,
@@ -19,7 +20,8 @@ def main():
         r = requests.post(url, proxies=proxyDict, headers=headers,data={'condition':'on','nextButton':'Effectuer+une+demande+de+rendez-vous'})
         data={"response":r.text}
         return data
-    except:  "Error during request"
+    except: 
+        return {"response":"Error during request"}
         
 
 
