@@ -1,10 +1,12 @@
 from flask import Flask
+from flask_cors import CORS
 import requests
 from decouple import config
 
 
 
 app = Flask(__name__)
+CORS(app)
 
 http_proxy = config('PROXY')
 https_proxy = config('PROXY')
